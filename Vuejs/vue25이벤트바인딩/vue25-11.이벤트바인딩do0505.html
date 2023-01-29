@@ -64,4 +64,35 @@
 
   </body>
 
+  <!-- vue 플러그인 임포트   -->
+  <script src="https://unpkg.com/vue@2.7.8/dist/vue.js">/* vue 플러그인 임포트 */</script>
+  <script>
+    new Vue({
+      /* edtmc^2w */
+      el: '#app',
+      data: {
+        /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+        sum1: 0,
+        numInput: 0,
+        sumInput: 0,
+        sum10: 0
+      },
+      //template: ``,
+      methods: {
+        /* 이벤트 핸들러 등록 + 일반 함수 */
+        clickBtn1() {
+          this.$data.sum1 = this.$data.sum1 + 1;
+        },
+        clickBtnInput() {
+          this.$data.sumInput = this.$data.sumInput + Number(this.$data.numInput);
+        },
+        clickBtn10(e) {
+          // 1. 이벤트 핸들러에 인자를 넘기는 방법
+          let num = e.target.dataset.num; //문자열 10이 온다 / data-num값을 가져옴 / 데이터 대쉬 속성
+          this.$data.sum10 = this.$data.sum10 + Number(num);
+        }
+      }
+    });
+
+  </script>
 </html>
