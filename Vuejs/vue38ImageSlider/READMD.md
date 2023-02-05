@@ -4,29 +4,33 @@ vue.js 를 이용해서 이미지 슬라이더를 만들어 보겠습니다.
 
 ```
     $ mkdir -p src/components/imageslider
-    $ touch src/components/imageslider/ImageSliderComp.vue
-    $ touch src/views/ImageSliderView.vue
+    $ touch src/components/imageslider/ImageSliderComp.vue #프리젠테이션 컴포넌트 만들기
+    $ touch src/views/ImageSliderView.vue #컨테이너 컴포넌트 만들기
 ```
 
 ## 이미지 슬라이더 파일 복사하기
 
-public/images/slider 폴더를 생성하고 이미지 슬라이더에 출력할 이미지 추가
+public/images/slider 폴더를 생성하고 이미지 슬라이더에서 사용할 이미지 추가
 
 ```
-  $ mkdir -p [프로젝트폴더]/public/images/slider
+  $ mkdir -p ./public/images/slider
   $ cp ./slider*.jpg  [프로젝트폴더]/public/images/slider
 ```
 
 ## 버튼 이미지 추가하기
 
 ```
-  $ mkdir -p  [프로젝트폴더]/public/assets
+  $ mkdir -p  ./public/assets
   $ cp ./arrow.png [프로젝트폴더]/src/assets/
 ```
 
 ## 페이지 링크 만들기
 
-src/App.vue 수정 ==>
+src/App.vue 수정
+
+```
+<router-link to="/imageSlider">imageSlider</router-link>
+```
 
 ## 라우팅 설정.
 
@@ -34,9 +38,17 @@ url 과 view 컴포넌트 연결
 
 src/router/index.js 수정
 
-## View3801ImageSlider.vue 작성
+```
+  {
+    path: '/imageSlider',
+    name: 'imageSlider',
+    component: () => import('../views/ImageSliderView.vue'),
+  },
+```
 
-src/views/View3801ImageSlider.vue
+## ImageSliderView.vue 작성
+
+src/views/ImageSliderView.vue
 
 ```
 <template>
@@ -44,6 +56,28 @@ src/views/View3801ImageSlider.vue
     <ImageSliderComp v-bind:option="option" />
   </div>
 </template>
+```
+
+## ImageSliderView.vue data 작성
+
+```
+    option: [
+      {
+        src: `/images/slider/slider01.jpg`,
+        name: '노을이 지고 난 후의 고성',
+        id: 1,
+      },
+      {
+        src: `/images/slider/slider02.jpg`,
+        name: '힘들어지쳐 쓰러진 나.',
+        id: 2,
+      },
+      {
+        src: `/images/slider/slider03.jpg`,
+        name: '카페에서 행복한 나',
+        id: 3,
+      },
+    ],
 ```
 
 ## ImageSliderComp.vue 작성
@@ -159,4 +193,27 @@ span.left > img {
     </div>
   </div>
 </template>
+```
+
+## 실행시 0번 이미지 나오게 코드 작성
+
+## toRight() 기능 완성
+
+Math.min()을 사용하여 기능 완성
+
+```
+    toRight() {
+      this.$data.currIdx = Math.min(
+        this.$data.currIdx + 1,
+        this.$props.option.length - 1,
+      );
+    },
+```
+
+## toLeft() 기능 완성
+Math.max()을 사용하여 기능 완성
+```
+    toLeft() {
+      this.$data.currIdx = Math.max(this.$data.currIdx - 1, 0);
+    },
 ```
