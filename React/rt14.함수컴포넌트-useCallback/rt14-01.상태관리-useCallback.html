@@ -59,18 +59,18 @@
         };
 
         자식 컴포넌트
-        function Child(props) {
+        function Child({parentText, callbackChildMessage}) {
             // 컴포넌트의 상태값 설정
             const [childText, setChildText] = useState('child text'); // 상태값이 기본타입인 경우
 
             function handlerChild() {
-                props. callbackChildMessage(childText);
+                callbackChildMessage(childText);
             }
 
             // JSX로 화면 만들기
             return (
                 <div>
-                    parentText: {props.parentText}
+                    parentText: {parentText}
                     <br />
                     childText: {childText}
                     <br />
@@ -91,3 +91,85 @@
     <div id="app"></div>
   </body>
 </html>
+
+<script src="https://unpkg.com/@babel/standalone/babel.js"
+  crossorigin="anonymous">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-- > ES5 * /
+  </script>
+<script src="http://unpkg.com/react@17/umd/react.development.js"
+  crossorigin="anonymous">
+    /* import React, { Component, PureComponent } from 'react' */
+  </script>
+<script src="http://unpkg.com/react-dom@17/umd/react-dom.development.js"
+  crossorigin="anonymous">
+    /* import ReactDOM from 'react-dom' */
+  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+<script type="text/babel">
+
+  const { useState, useEffect, useRef, useCallback, useMemo, useReducer, Fragment } = React;
+
+  // id="app" 인 태그 에 컴포넌트를 화면에 붙이시오
+  // ReactDOM.render( 인자1, 인자2 )
+  ReactDOM.render(<Parent />, document.getElementById('app'));
+
+  // 단축키 rfc
+  function Parent({
+  }) {
+    // useState 를 사용한 컴포넌트의 상태값 설정
+    const [parentText, setParentText] = useState('parent text'); // 상태값이 기본타입인 경우
+    const [childMessage, setChildMessage] = useState(null); // 상태값이 기본타입인 경우
+    const callbackChildMessage = useCallback((text) => {
+      console.log(text);
+      setChildMessage(text);
+      setParentText(text);
+    }, [childMessage, parentText]);
+    return (
+      <div>
+        <Child callbackChildMessage={callbackChildMessage} parentText={parentText}></Child>
+        <br />
+        {childMessage}
+      </div>
+    )
+  }
+  Parent.propTypes = {};
+  Parent.defaultProps = {};
+
+  function Child({
+    parentText,
+    callbackChildMessage
+  }) {
+    // useState 를 사용한 컴포넌트의 상태값 설정
+    const [childText, setChildText] = useState('child text'); // 상태값이 기본타입인 경우
+
+    function handlerChild() {
+      callbackChildMessage(childText);
+    }
+
+    // JSX로 화면 만들기. 조건부 렌더링: https://ko.reactjs.org/docs/conditional-rendering.html
+    return (
+      <div>
+        parentText: {parentText}
+        <br />
+        childText: {childText}
+        <br />
+        <button onClick={handlerChild}>button</button>
+      </div>
+    )
+  }
+  Child.propTypes = {
+    // props의 프로퍼티 타입 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
+    // 인자명: PropTypes.func.isRequired,
+    // 인자명: PropTypes.arrayOf(PropTypes.object),
+    callbackChildMessage: PropTypes.func.isRequired,
+    parentText:PropTypes.string,
+  };
+  Child.defaultProps = {
+    // props의 디폴트 값 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
+    // 인자명: () => {},
+    // 인자명: [],
+    callbackChildMessage: () => {},
+    parentText:'',
+  };
+
+</script>

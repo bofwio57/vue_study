@@ -61,7 +61,7 @@
       { id: '001', taskName: "빨래하기", finished: false },
       { id: '002', taskName: "공부하기", finished: true },
       { id: '003', taskName: "게임하기", finished: true },
-    ]);
+    ]); //상태값이 배경 타입인 경우
 
     const todos = todoList.map((todo, index, array) => {
       return (<li key={todo.id}>{todo.taskName}</li>)
