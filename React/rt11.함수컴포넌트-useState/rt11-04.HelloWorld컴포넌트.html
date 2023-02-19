@@ -49,10 +49,58 @@
             HelloWorldContainer 컴포넌트 만들기
             HelloWorld 컴포넌트 만들기
         2. HelloWorld 컴포넌트 JSX 만들기
-        . props 설정
+        3. HelloWorldContainer 컴포넌트 JSX 만들기
+        4. props 설정
+        5. 도전, 리액트 반복문 적용해 보기 > map
     </xmp>
     <hr />
 
     <div id="app">요기에</div>
   </body>
 </html>
+
+<script src="https://unpkg.com/@babel/standalone/babel.js"
+  crossorigin="anonymous">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-- > ES5 * /
+  </script>
+<script src="http://unpkg.com/react@17/umd/react.development.js"
+  crossorigin="anonymous">
+    /* import React, { Component, PureComponent } from 'react' */
+  </script>
+<script src="http://unpkg.com/react-dom@17/umd/react-dom.development.js"
+  crossorigin="anonymous">
+    /* import ReactDOM from 'react-dom' */
+  </script>
+<script type="text/babel">
+
+  const { useState, useEffect, useRef, useCallback, useMemo, useReducer, Fragment } = React;
+
+  // id="app" 인 태그 에 컴포넌트를 화면에 붙이시오
+  // ReactDOM.render( 인자1, 인자2 )
+  ReactDOM.render(<HelloWorldContainer />, document.getElementById('app'));
+
+  // 단축키 rfc
+  function HelloWorldContainer({
+    ...props
+  }) {
+    const [d, setD] = useState([1, 2, 3, 4]);
+    return (
+      <Fragment>
+        {d.map((value, index, array) => {
+          return (<HelloWorld index={value}></HelloWorld>);
+        })}
+      </Fragment>
+    )
+  }
+  function HelloWorld({
+    index
+  }) {
+    return (
+      <div>
+        Hello, react world!!! {index} - component
+      </div>
+    )
+  }
+
+
+</script>
