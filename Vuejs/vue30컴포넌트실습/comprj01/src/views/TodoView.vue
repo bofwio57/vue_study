@@ -19,15 +19,17 @@ button {
   <div id="app">
     <!-- TodoHeader -->
     <TodoHeader></TodoHeader>
+
     <!-- TodoInput -->
     <TodoInput v-on:addTodo="addTodo"></TodoInput>
+
     <!-- TodoList -->
     <TodoList
       v-bind:todoItems="todoItems"
       v-on:doneToggle="doneToggle"
       v-on:removeTodo="removeTodo"
-    >
-    </TodoList>
+    ></TodoList>
+
     <!-- TodoFooter -->
     <TodoFooter v-on:clearAll="clearAll"></TodoFooter>
   </div>
@@ -57,30 +59,73 @@ export default {
   //template: ``,
   methods: {
     /* 이벤트 핸들러 등록 + 일반 함수 */
-    /* vuex 를 사용하는 경우
-      mapActions 는 store의 actions 를 가져오는 헬퍼 메서드입니다.
-      namespaced: true를 설정한 경우 네임스페이스를 사용하기 때문에 store의 모듈 명을 적어주어야 합니다.
-      store 모듈에서 actions 를 가져오는 2가지 방식
-      1) store.모듈명.actions 이름 바꾸어 사용하기(추천방식)
-         ...mapActions('모듈명', { dispatch액션명1: '액션명1', dispatch액션명2: '액션명2' }),
-      2) store.모듈명.actions 이름 그대로 사용하기
-         ...mapActions('모듈명', ['액션명1', '액션명2']),
-      */
     clearAll() {
-      //새로운 빈 배열을 만들어라
+      // debugger;
+      // todoItems = [];
       this.$data.todoItems = [];
     },
-    addTodo(e) {
-      console.log(e.target);
+    addTodo(newTodoItem) {
       debugger;
+      console.log(newTodoItem);
+      // max id 구하기 ==> map과 reduce 를 사용하여
+      // 1. id 값 만 있는 새로운 배열을 만든다. ==> map() 메서드 사용.
+      // 2. map() 메서드로 만들어진 새로운 배열에서 최대값을 찾는다. ===> reduce() 메서드 사용
+      // 3. 추가될 새로운 id = max id + 1
+      const ids = this.$data.todoItems.map((item) => {
+        // item = { id, todo, done }
+        return item.id;
+      }); // [1,2,3,4]
+      const maxid = ids.reduce((pvalue, cvalue, index, array) => {
+        // Math.max(0,1)
+        // Math.max(1,2)
+        // Math.max(2,3)
+        // Math.max(3,4)
+        if (pvalue > cvalue) {
+          return pvalue;
+        } else {
+          return cvalue;
+        }
+      }, 0);
+      const newid = maxid + 1;
+      // 4. todoItems 추가할 객체 만들기
+      const newtodo = {
+        id: newid,
+        todo: newTodoItem,
+        done: false,
+      };
+      // 5. this.$data.todoItems 배열에 newTodo 객체를 추가하시오.
+      // this.$data.todoItems.push(newtodo);
+      this.$data.todoItems = [...this.$data.todoItems, newtodo];
     },
     doneToggle(id) {
-      // id값이 들어옴
       debugger;
+      console.log(id);
+      // 복제 후 할당.
+      // 1. 배열 복제
+      const newTodos = this.$data.todoItems.map((item) => {
+        debugger;
+        if (item.id === id) {
+          item.done = !item.done;
+        }
+        return item;
+      });
+      // 2. 할당
+      this.$data.todoItems = newTodos;
     },
-    removeTodo(e) {
-      console.log(e.target);
+    removeTodo(id) {
       debugger;
+      console.log(id);
+      // 복제 후 할당
+      // 1. 배열 복제
+      const newTodos = this.$data.todoItems.filter((item) => {
+        // false 를 반환하면 삭제된다.
+        if (item.id === id) {
+          return false;
+        }
+        return true;
+      });
+      // 2. 할당
+      this.$data.todoItems = newTodos;
     },
   },
   components: {

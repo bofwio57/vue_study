@@ -29,7 +29,6 @@ li.checked {
   margin-left: auto;
   color: #de4343;
 }
-
 .list-enter-active,
 .list-leave-active {
   transition: all 1s;
@@ -55,7 +54,7 @@ li.checked {
         <span
           class="removeBtn"
           type="button"
-          v-on:click="removeTodo(todoItem.id)"
+          v-on:click.stop="removeTodo(todoItem.id)"
         >
           <i class="far fa-trash-alt" aria-hidden="true"></i>
         </span>
@@ -63,41 +62,44 @@ li.checked {
     </transition-group>
   </section>
 </template>
+
 <script>
 // vuex 라이브러리에서 mapActions, mapMutations, mapState, mapGetters 함를 가져옵니다.
 // import { mapActions, mapMutations, mapState, mapGetters } from 'vuex';
-
 export default {
   /* pdtmc^2w */
   props: ['todoItems'],
   data() {
     /* 컴포넌트 안에서 사용되는 변수 등록. 개별 변수 */
-    return {};
+    return {
+      // todoItems: [],
+    };
   },
   //template: ``,
   methods: {
     /* 이벤트 핸들러 등록 + 일반 함수 */
-    /* vuex 를 사용하는 경우
-      mapActions 는 store의 actions 를 가져오는 헬퍼 메서드입니다.
-      namespaced: true를 설정한 경우 네임스페이스를 사용하기 때문에 store의 모듈 명을 적어주어야 합니다.
-      store 모듈에서 actions 를 가져오는 2가지 방식
-      1) store.모듈명.actions 이름 바꾸어 사용하기(추천방식)
-         ...mapActions('모듈명', { dispatch액션명1: '액션명1', dispatch액션명2: '액션명2' }),
-      2) store.모듈명.actions 이름 그대로 사용하기
-         ...mapActions('모듈명', ['액션명1', '액션명2']),
-      */
     checked(done) {
-      if (done) {
-        return 'checked'; // 또는 {checked: true}
-      } else {
-        return null; // 또는 {checked: false}
-      }
+      console.log(done);
+      // debugger;
+      if (done) return 'checked';
+      else return null; // class 속성을 만들지 마라.
     },
     doneToggle(id) {
+      console.log(id);
+      debugger;
+      // 부모 컴포넌트에 이벤트 발산
       this.$emit('doneToggle', id);
     },
     removeTodo(id) {
-      console.log(id.target);
+      console.log(id);
+      debugger;
+      // 부모 컴포넌트에 이벤트를 발생
+      this.$emit('removeTodo', id);
+      // click 이벤트 버블링 막기==> 이벤트 취소
+      // 1. window.event.stopPropagation() 호출하기
+      // 2. 템플릿에 .stop 수식자 추가
+      window.event.stopPropagation();
+      window.event.preventDefault();
     },
   },
   components: {

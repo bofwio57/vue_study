@@ -20,7 +20,7 @@
   <body>
     <div style="margin: 40px 0 0 30px;">
       ※ 실행 전에 서버를 실행하세요. <a href="#"
-        onClick="window.open('../../ES2015문법/ap09.서버통신/ap09-03.Node서버실행.html','Node서버실행','width=900,height=850,toolbar=no,menubar=no,scrollbars=no,resizable=yes');return false;"
+        onClick="window.open('../../ES2015문법/ap09.서버통신/ap09-01.Node서버실행.html','Node서버실행','width=900,height=850,toolbar=no,menubar=no,scrollbars=no,resizable=yes');return false;"
         rel="nofollow">Node서버실행</a>
       <br>
       <br>
@@ -282,7 +282,16 @@
         $ touch .eslintrc.js
 
         $ cat .eslintrc.js
+
         module.exports = {
+            /*
+              https://feynubrick.github.io/2019/05/20/eslint-prettier.html
+              ESLint 규칙:
+                https://eslint.org/docs/rules/
+                https://eslint.org/docs/user-guide/configuring/
+              Prettier 옵션:
+                https://prettier.io/docs/en/options.html
+            */
             root: true,
             env: {
               node: true,
@@ -302,6 +311,7 @@
               parser: '@babel/eslint-parser',
             },
             plugins: ['prettier'],
+            ignorePatterns: ['node_modules/'],
             rules: {
               'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
               'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -357,9 +367,9 @@
         정의한 ESLint 룰을 지키고 있지 않은 파일과 내용을 확인하고
         prettier 의 룰에 맞게 코드를 수정 할 수 있습니다.
         $ ls                            # package.json 이 있는지 확인
-        $ npx prettier --check ./src    # ESLint 룰 체크 src 폴더 이하만 검사
-        $ npx prettier --write ./src    # ESLint 룰에 맞게 코드 수정 src 폴더 이하만 변경
-                                        # npm run lint 와 동일
+        $ npx prettier --check ./src    # ESLint 룰 체크. src 폴더 이하만 검사
+        $ npx prettier --write ./src    # ESLint 룰에 맞게 코드 수정. src 폴더 이하만 변경. npm run lint 와 동일
+
 
     step 4-04. 프로젝트 전체 소스에 새로운 lint 설정 적용하기
     $ ls
@@ -490,14 +500,14 @@
     ##################################
 
     # 작업 폴더 및 파일 만들기
-        $ ls                                                  # package.json 파일이 있는지
+        $ ls    # pacakage.json 파일이 있는지 확인
         $ mkdir -p src/components/vue3103
-        $ touch src/components/vue3103/Vue3103Comp.vue        # 프리젠테이션 컴포넌트(화면표시용)
-        $ touch src/views/Vue3103View.vue                     # 컨테이너 컴포넌트(데이터저장)
+        $ touch src/components/vue3103/Vue3103Comp.vue   # 프리젠테이션 컴포넌트(화면표시용)
+        $ touch src/views/Vue3103View.vue                # 컨테이너 컴포넌트(데이터 저장)
 
-    src/App.vue 수정 ==> 페이지 링크 만들기
+    페이지 링크 만들기  ==> src/App.vue 수정
 
-    src/router/index.js  수정 ==> url 과 컴포넌트 연결
+    라우팅 설정(url 과 컴포넌트 연결) ==> src/router/index.js  수정
 
     src/views/Vue3103View.vue 생성
         <template>
@@ -538,9 +548,9 @@
         $ touch src/views/Vue3104View.vue
         $ touch src/components/vue3104/Vue3104Counter.vue
 
-    src/App.vue 수정 ==> 페이지 링크 만들기
+    페이지 링크 만들기  ==> src/App.vue 수정
 
-    src/router/index.js  수정 ==> url 과 컴포넌트 연결
+    라우팅 설정(url 과 컴포넌트 연결) ==> src/router/index.js  수정
 
     src/views/Vue3104View.vue 생성
         <template>
@@ -578,10 +588,9 @@
         $ touch src/components/vue31ex/Vue31exContent.vue
         $ touch src/components/vue31ex/Vue31exContentList.vue
 
+    페이지 링크 만들기  ==> src/App.vue 수정
 
-    src/App.vue 수정 ==> 페이지 링크 만들기
-
-    src/router/index.js  수정 ==> url 과 컴포넌트 연결
+    라우팅 설정(url 과 컴포넌트 연결) ==> src/router/index.js  수정
 
     src/views/Vue31exView.vue 생성
         <style scoped>
@@ -645,9 +654,9 @@
         $ touch src/components/vue3305/Vue3305Top.vue
         $ touch src/components/vue3305/Vue3305Bottom.vue
 
-    src/App.vue 수정 ==> 페이지 링크 만들기
+    페이지 링크 만들기  ==> src/App.vue 수정
 
-    src/router/index.js  수정 ==> url 과 컴포넌트 연결
+    라우팅 설정(url 과 컴포넌트 연결) ==> src/router/index.js  수정
 
     src/views/Vue3305View.vue 생성(뷰 컴포넌트)
 
@@ -669,13 +678,14 @@
     [참조]page 68
     ##################################
     # 작업 폴더 및 파일 만들기
-        $ mkdir -p src/components/vue3403
-        $ touch src/views/Vue3403View.vue
-        $ touch src/components/vue3403/Vue3403Comp.vue
+        $ ls          # package.json 파일이 있는 확인
+        $ mkdir -p src/components/vue3403               # 폴더 만들기
+        $ touch src/views/Vue3403View.vue               # 컨테이너 컴포넌트 만들기
+        $ touch src/components/vue3403/Vue3403Comp.vue  # 프리젠테이션 컴포넌트 만들기
 
-    src/App.vue 수정 ==> 페이지 링크 만들기
+    페이지 링크 만들기  ==> src/App.vue 수정
 
-    src/router/index.js  수정 ==> url 과 컴포넌트 연결
+    라우팅 설정(url 과 컴포넌트 연결) ==> src/router/index.js  수정
 
     src/views/Vue3403View.vue 생성(부모 컴포넌트)
         <template>
@@ -725,14 +735,15 @@
             this.$emit( "이벤트명", 전달값)
     ##################################
     # 작업 폴더 및 파일 만들기
-        $ mkdir -p src/components/vue34ex                           # 폴더 생성
-        $ touch src/views/Vue34exView.vue                           # 컨테이너 컴포넌트 만들기
-        $ touch src/components/vue34ex/Vue34exParent.vue            # 프리젠테이션 컴포넌트 만들기
-        $ touch src/components/vue34ex/Vue34exChild.vue             # 프리젠테이션 컴포넌트 만들기
+        $ ls    # package.json 파일이 있는지 확인
+        $ mkdir -p src/components/vue34ex     # 폴더 생성
+        $ touch src/views/Vue34exView.vue     # 컨테이너 콤포넌트 만들기
+        $ touch src/components/vue34ex/Vue34exParent.vue  # 프리젠테이션 컴포넌트만들기
+        $ touch src/components/vue34ex/Vue34exChild.vue   # 프리젠테이션 컴포넌트만들기
 
-    src/App.vue 수정 ==> url 페이지 링크 만들기
+    페이지 링크 만들기  ==> src/App.vue 수정
 
-    src/router/index.js  수정 ==> url 과 컴포넌트 연결
+    라우팅 설정(url 과 컴포넌트 연결) ==> src/router/index.js  수정
 
     src/views/Vue34exView.vue 생성(뷰 컴포넌트)
     <template>
@@ -765,8 +776,8 @@
             <!-- Child 컴포넌트를 등록하고 counter 데이터 속성을 props로 전달한다. -->
             <component-child
                 v-bind:num      ="counter"
-                v-on:add-counter="addCounter"
-                v-on:sub-counter="subCounter">
+                v-on:addCounter="addCounter"
+                v-on:subCounter="subCounter">
             </component-child>
         </div>
     </template>
@@ -800,9 +811,9 @@
         $ touch src/views/Vue3501View.vue
         $ touch src/components/vue3501/Vue3501Comp.vue
 
-    src/App.vue 수정 ==> 페이지 링크 만들기
+    페이지 링크 만들기  ==> src/App.vue 수정
 
-    src/router/index.js  수정 ==> url 과 컴포넌트 연결
+    라우팅 설정(url 과 컴포넌트 연결) ==> src/router/index.js  수정
 
     src/views/Vue3501View.vue 생성(뷰 컴포넌트)
     <template>
@@ -854,14 +865,15 @@
     전역 CSS 사용시 스타일 충돌을 이해한다.
     ##################################
     # 작업 폴더 및 파일 만들기
+        $ ls # package.json 파일이 있는지 확인
         $ mkdir -p src/components/vue3701
         $ touch src/views/Vue3701View.vue
         $ touch src/components/vue3701/CompChild1.vue
         $ touch src/components/vue3701/CompChild2.vue
 
-    src/App.vue 수정 ==> 페이지 링크 만들기
+    페이지 링크 만들기  ==> src/App.vue 수정
 
-    src/router/index.js  수정 ==> url 과 컴포넌트 연결
+    라우팅 설정(url 과 컴포넌트 연결) ==> src/router/index.js  수정
 
     src/views/Vue3701View.vue 생성(뷰 컴포넌트)
     <style>
@@ -946,6 +958,7 @@
     ##################################
 
     # 작업 폴더 및 파일 만들기
+        $ ls      # package.json 이 있는지 확인
         $ touch src/components/vue3701/CompChild11.vue
 
     # src/components/vue3701/CompChild11.vue 추가
