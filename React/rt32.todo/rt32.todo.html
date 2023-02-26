@@ -326,7 +326,7 @@
     step 21-6. TodoContainer 의 JSX 에서 modal 창 숨기기 기능 추가하기
         변경 전: <div class="modal-mask">
         변경 후: <div class="modal-mask" style={{ display: 'none' }}>
-        
+
         css 를 javascript 로 바꾸는 변환 규칙
           1. 대문자 로 바꾼다.명칭은 카멜 표기법 사용. 왜냐하면 자바스립트이기 때문.
               예시) 대시 표기법(CSS) ==> 카멜 표기법(JS)
@@ -461,7 +461,7 @@
         const handlerClearAll = () => {
             console.log(e.target);
             debugger;
-            
+
             // 부모 컴포넌트의 콜백 메서드 callbackClearAll 호출.
             callbackClearAll();
         };
@@ -469,7 +469,7 @@
     step 24-09. TodoFooter 에 props 설정
         TodoFooter.propTypes 수정
         TodoFooter.defaultProps 수정
-        
+
         function TodoFooter({
           callbackClearAll
         }) {
@@ -586,7 +586,7 @@
     step 25-08. TodoList 에 props 설정
         TodoList.propTypes 수정
         TodoList.defaultProps 수정
-        
+
         function TodoList({
           todoItems
         }) {
@@ -629,6 +629,10 @@
     step 26-01. TodoList 의 JSX에
         li 태그에 onClick 설정한다.
 
+        이벤트 핸들러로 정보를 넘긴다.
+        data-id={item.id}
+        data-item={JSON.stringify(item)} 아이템 객체를 문자열로 바꿔서 보내야됨
+
         const lis = todoItems && todoItems.map((item) => {
           return (
             <li
@@ -664,7 +668,7 @@
     step 26-03. TodoList 컴포넌트에 props 설정
         TodoList.propTypes 수정
         TodoList.defaultProps 수정
-        
+
         function TodoList({
           todoItems,
           callbackDoneToggle
@@ -717,7 +721,7 @@
                 className="removeBtn"
                 onClick={(e) => {
                     e.stopPropagation(); // 이벤트 취소. 버블링 방지
-                    
+
                     // 부모 컴포넌트의 콜백 메서드 callbackDoneToggle 호출
                     handlerRemoveTodo(e, item.id);
                 }}
@@ -736,7 +740,7 @@
     step 27-03. TodoList 컴포넌트에 props 설정
         TodoList.propTypes 수정
         TodoList.defaultProps 수정
-        
+
         function TodoList({
           todoItems,
           callbackDoneToggle,
@@ -744,7 +748,7 @@
         }) {
           ... 이하 중략
         }
-        
+
         TodoList.propTypes = {
           todoItems: PropTypes.arrayOf(PropTypes.object),
           callbackDoneToggle: PropTypes.func.isRequired,
@@ -907,7 +911,7 @@
         </span>
 
     step 28-14. TodoInput 컴포넌트 handlerAddTodo 메서드 작성
-        cosnt handlerAddTodo = (e) => {
+    const handlerAddTodo = (e) => {
 
             // click 이벤트 취소. 버블링 방지
             e.stopPropagation();
@@ -936,7 +940,7 @@
     step 28-15. TodoInput 컴포넌트에 props 설정
         TodoInput.propTypes 수정
         TodoInput.defaultProps 수정
-        
+
         function TodoInput({
           callbackAddTodo
         }) {

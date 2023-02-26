@@ -1,32 +1,52 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-  useReducer,
-  Fragment,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React from 'react';
+import { Routes, Route, NavLink } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 import CompStyle from '../containers/styled/CompStyle';
 import CrudContainer from '../components/crud/CrudContainer';
 import HomeContainer from '../containers/home/HomeContainer';
-import { Routes } from 'react-router';
+import TodoContainer from '../containers/todo/TodoContainer';
+
+const StyledPageHome = styled.div`
+  /* styled 설정. https://styled-components.com/docs/basics#adapting-based-on-props */
+  .active {
+    background-color: aqua;
+  }
+  .inactive {
+    background-color: none;
+  }
+`;
 
 function PageHome({ ...props }) {
   // ref 만들기.
   // const refInput = useRef();
-
   // JSX로 화면 만들기. 조건부 렌더링: https://ko.reactjs.org/docs/conditional-rendering.html
   return (
-    <div>
+    <StyledPageHome>
+      <div>
+        <ul>
+          <li>
+            <NavLink to={''}>Home</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/style'}>Style</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/crud'}>Crud</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/todo'}>todo</NavLink>
+          </li>
+        </ul>
+      </div>
       <Routes>
-        <Route path="/" element={<HomeContainer />} />
+        <Route path="/style" element={<CompStyle />} />
         <Route path="/crud" element={<CrudContainer />} />
+        <Route path="/todo" element={<TodoContainer />} />
+        <Route path="/" element={<HomeContainer />} />
+        <Route path="*" to={'/'} />
       </Routes>
-    </div>
+    </StyledPageHome>
   );
 }
 
