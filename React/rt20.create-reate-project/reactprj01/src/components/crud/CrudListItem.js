@@ -66,17 +66,17 @@ function CrudListItem({
   const handlerDel = (event) => {
     // 이벤트 핸들러는 화살표 함수로 만든다
     console.log(event.target);
-    callbackDel();
+    callbackDel(item);
   };
   const handlerUp = (event) => {
     // 이벤트 핸들러는 화살표 함수로 만든다
     console.log(event.target);
-    callbackUp();
+    callbackUp(item);
   };
   const handlerDown = (event) => {
     // 이벤트 핸들러는 화살표 함수로 만든다
     console.log(event.target);
-    callbackDown();
+    callbackDown(item);
   };
   const handlerEdit = (event) => {
     // 이벤트 핸들러는 화살표 함수로 만든다

@@ -80,9 +80,20 @@ function CrudContainer({ ...props }) {
     (item) => {
       // items 배열에서 삭제. Array.filter() 를 사용한다
       // ...생략
+      const newItems =
+        items &&
+        items.length > 0 &&
+        items.filter((obj) => {
+          if (obj.id === item.id) {
+            return false;
+          }
+          return true;
+        });
+      setItems(newItems); //삭제된 새로운 배열
     },
     [
       /* 메서드와 연관되는 상태(변수)명들을 기술 */
+      items,
     ],
   );
 
@@ -90,10 +101,20 @@ function CrudContainer({ ...props }) {
     (item) => {
       //100씩 증가. Array.map() 을 사용한다
       // item.power = item.power + 100;
-      // ...생략
+      const newItems =
+        items &&
+        items.length > 0 &&
+        items.filter((obj) => {
+          if (obj.id === item.id) {
+            obj.power = obj.power + 100;
+          }
+          return obj;
+        });
+      setItems(newItems); //삭제된 새로운 배열
     },
     [
       /* 메서드와 연관되는 상태(변수)명들을 기술 */
+      items,
     ],
   );
 
@@ -101,10 +122,20 @@ function CrudContainer({ ...props }) {
     (item) => {
       // 50씩 감소.  Array.map() 을 사용한다
       // item.power = item.power - 50;
-      // ...생략
+      const newItems =
+        items &&
+        items.length > 0 &&
+        items.filter((obj) => {
+          if (obj.id === item.id) {
+            obj.power = obj.power - 50;
+          }
+          return obj;
+        });
+      setItems(newItems); //삭제된 새로운 배열
     },
     [
       /* 메서드와 연관되는 상태(변수)명들을 기술 */
+      items,
     ],
   );
 
@@ -113,16 +144,20 @@ function CrudContainer({ ...props }) {
       debugger;
       // newitem 으로 바뀐 새로운 배열 만들기.
       // Array.map() 을 사용
-      const newItems = items.map((item) => {
-        if (item.id === newitem.id) {
-          return newitem;
-        }
-        return item;
-      });
+      const newItems =
+        items &&
+        items.length > 0 &&
+        items.map((item) => {
+          if (item.id === newitem.id) {
+            return newitem;
+          }
+          return item;
+        });
       setItems(newItems); // items = newItems;
     },
     [
       /* 메서드와 연관되는 상태(변수)명들을 기술 */
+      items,
     ],
   );
 
