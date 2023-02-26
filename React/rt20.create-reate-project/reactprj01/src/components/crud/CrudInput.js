@@ -1,26 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-  useReducer,
-  Fragment,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  NavLink,
-  useParams,
-  useLocation,
-  useHistory,
-  useNavigate,
-} from 'react-router-dom';
 
 const StyledCrudInput = styled.div`
   /* styled 설정. https://styled-components.com/docs/basics#adapting-based-on-props */

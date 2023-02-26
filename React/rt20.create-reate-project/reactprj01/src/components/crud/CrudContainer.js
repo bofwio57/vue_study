@@ -1,26 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-  useReducer,
-  Fragment,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  NavLink,
-  useParams,
-  useLocation,
-  useHistory,
-  useNavigate,
-} from 'react-router-dom';
 import CrudInput from './CrudInput';
 import CrudList from './CrudList';
 
@@ -49,31 +29,6 @@ function CrudContainer({ ...props }) {
     { id: 3, name: '스파이더맨', power: 500 },
     { id: 4, name: '배트맨', power: 30 },
   ]);
-
-  // ref 만들기.
-  // const refInput = useRef();
-
-  // refIsMounted는 생명주기의 마운트와 업데이트를 구분하기 위한 ref
-  const refIsMounted = useRef(false);
-  useEffect(
-    () => {
-      if (refIsMounted.current) {
-        // 업데이트 될 때마다 실행됨. 여러번. state 가 변경될 때마다
-        // console.log('CrudContainer >> componentDidUpdate');
-      } else {
-        // 마운트 완료 후에 실행됨. 한번만. focus 줄때
-        // console.log('CrudContainer >> componentDidMount');
-        refIsMounted.current = true;
-      }
-      return () => {
-        // 언마운트 직전에 한번만 실행됨.
-        // console.log('CrudContainer >> componentWillUmount');
-      };
-    },
-    [
-      /* 연관배열: 메서드와 연관되는 상태(변수)명들을 기술 */
-    ],
-  );
 
   // callback 메서드 작성. callback 메서드는 부모의 공유 상태값을 변경하기 위해서 사용된다.
   const callbackDel = useCallback(

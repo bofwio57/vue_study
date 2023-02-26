@@ -116,24 +116,8 @@ function TodoInput({ callbackAddTodo }) {
   // useState 를 사용한 컴포넌트의 상태값 설정
   const [isShowModal, setIsShowModal] = useState(false);
 
-  // useReducer 를 사용한 컴포넌트의 상태값 설정. 리듀서는 현재 상태를 받아서 새 상태를 반환하는 함수다
-  const [리듀서, set리듀서] = useReducer(
-    (oldvalue, newvalue) => ({ ...oldvalue, ...newvalue }),
-    { id: 0, name: '', age: 0 },
-  ); // 리듀서(reducer) 방식의 상태값 설정
-
   // ref 만들기.
   const refInputTodo = useRef();
-
-  // callback 메서드 작성. callback 메서드는 부모의 공유 상태값을 변경하기 위해서 사용된다.
-  const callback = useCallback(
-    (param) => {
-      // state 변경
-    },
-    [
-      /* 연관배열: 콜백 메서드에서 변경하고자 하는 연관되는 상태(변수)명들을 기술 */
-    ],
-  );
 
   // 모달창 이벤트 핸들러 작성.
   const handlerShowModal = (e) => {

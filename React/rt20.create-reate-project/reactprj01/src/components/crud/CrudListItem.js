@@ -1,26 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-  useReducer,
-  Fragment,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  NavLink,
-  useParams,
-  useLocation,
-  useHistory,
-  useNavigate,
-} from 'react-router-dom';
 
 const StyledCrudListItem = styled.tr`
   /* styled 설정. https://styled-components.com/docs/basics#adapting-based-on-props */
@@ -35,28 +15,6 @@ function CrudListItem({
 }) {
   // useState 를 사용한 컴포넌트의 상태값 설정
   const [isEditMode, setIsEditMode] = useState(false);
-
-  // refIsMounted는 생명주기의 마운트와 업데이트를 구분하기 위한 ref
-  const refIsMounted = useRef(false);
-  useEffect(
-    () => {
-      if (refIsMounted.current) {
-        // 업데이트 될 때마다 실행됨. 여러번. state 가 변경될 때마다
-        // console.log('CrudListItem >> componentDidUpdate');
-      } else {
-        // 마운트 완료 후에 실행됨. 한번만. focus 줄때
-        // console.log('CrudListItem >> componentDidMount');
-        refIsMounted.current = true;
-      }
-      return () => {
-        // 언마운트 직전에 한번만 실행됨.
-        // console.log('CrudListItem >> componentWillUmount');
-      };
-    },
-    [
-      /* 연관배열: 메서드와 연관되는 상태(변수)명들을 기술 */
-    ],
-  );
 
   // ref 만들기.
   const refInputName = useRef();

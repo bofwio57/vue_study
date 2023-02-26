@@ -24,37 +24,6 @@ function TodoContainer({ ...props }) {
     { id: 4, todo: '잠실 야구장', done: false },
   ]); // 상태값이 배열 타입인 경우
 
-  // useReducer 를 사용한 컴포넌트의 상태값 설정. 리듀서는 현재 상태를 받아서 새 상태를 반환하는 함수다
-  const [리듀서, set리듀서] = useReducer(
-    (oldvalue, newvalue) => ({ ...oldvalue, ...newvalue }),
-    { id: 0, name: '', age: 0 },
-  ); // 리듀서(reducer) 방식의 상태값 설정
-
-  // ref 만들기.
-  // const refInput = useRef();
-
-  // refIsMounted는 생명주기의 마운트와 업데이트를 구분하기 위한 ref
-  const refIsMounted = useRef(false);
-  useEffect(
-    () => {
-      if (refIsMounted.current) {
-        // 업데이트 될 때마다 실행됨. 여러번. state 가 변경될 때마다
-        // console.log('TodoContainer >> componentDidUpdate');
-      } else {
-        // 마운트 완료 후에 실행됨. 한번만. focus 줄때
-        // console.log('TodoContainer >> componentDidMount');
-        refIsMounted.current = true;
-      }
-      return () => {
-        // 언마운트 직전에 한번만 실행됨.
-        // console.log('TodoContainer >> componentWillUmount');
-      };
-    },
-    [
-      /* 연관배열: 메서드와 연관되는 상태(변수)명들을 기술 */
-    ],
-  );
-
   // callback 메서드 작성. callback 메서드는 부모의 공유 상태값을 변경하기 위해서 사용된다.
   const callbackClearAll = useCallback(() => {
     // state 변경
